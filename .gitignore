@@ -13,3 +13,6 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+.next
+package-lock.json
