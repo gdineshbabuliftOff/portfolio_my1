@@ -3,7 +3,9 @@
 import { Github, Linkedin, Twitter, Code, ExternalLink, Briefcase, GraduationCap, Send, X, Award } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
+import profileImage from '../../../public/praveen.jpeg';
+import portfolio from '../../../public/portfolio.png';
 
 // --- TYPE DEFINITIONS ---
 interface PortfolioImageProps {
@@ -19,7 +21,7 @@ interface Project {
   tags: string[];
   liveUrl?: string;
   repoUrl?: string;
-  image: string;
+  image: StaticImageData;
 }
 
 interface SocialLinkProps {
@@ -47,7 +49,7 @@ const PortfolioImage: React.FC<PortfolioImageProps> = ({ src, alt }) => {
       transition={{ duration: 0.5 }}
     >
         <Image
-          src={imgSrc}
+          src={profileImage || imgSrc}
           alt={alt}
           className="w-full h-full object-cover"
           onError={() => setImgSrc(fallbackSrc)}
@@ -237,7 +239,7 @@ const projectData: Project[] = [
         tags: ["Python", "Deep Learning", "Computer Vision", "TensorFlow/Keras"],
         liveUrl: "#",
         repoUrl: "#",
-        image: "https://placehold.co/600x400/e0f2fe/334155?text=Object+Detection"
+        image: portfolio
     },
     {
         title: "Personal Portfolio Website",
@@ -245,9 +247,9 @@ const projectData: Project[] = [
         description: "This very portfolio, built with Next.js and Tailwind CSS to showcase my skills and projects.",
         longDescription: "This website is a project designed to demonstrate my abilities in frontend development. It's built using Next.js for server-side rendering and performance, styled with Tailwind CSS for a modern and responsive design, and includes interactive elements powered by Framer Motion for a smooth user experience.",
         tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-        liveUrl: "#",
+        liveUrl: "https://apraveen.vercel.app/profile",
         repoUrl: "https://github.com/praveen44",
-        image: "https://placehold.co/600x400/e0f2fe/334155?text=Portfolio"
+        image: portfolio
     },
     {
         title: "E-commerce UI/UX",
@@ -257,7 +259,7 @@ const projectData: Project[] = [
         tags: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
         liveUrl: "#",
         repoUrl: "#",
-        image: "https://placehold.co/600x400/dbeafe/334155?text=E-commerce+UI"
+        image: portfolio
     }
 ];
 
@@ -291,7 +293,7 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: () => void; }> = ({
       onClick={onCardClick}
     >
       <div className="relative h-56 overflow-hidden">
-        <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        <Image src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width={1000} height={1000} />
       </div>
       <div className="p-6">
         <p className='text-sm font-semibold text-teal-600 mb-1'>{project.category}</p>
@@ -315,7 +317,7 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void; }> = ({ pr
                 <X size={28} />
             </button>
             <div className="relative h-72">
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover rounded-t-lg" />
+                <Image src={project.image} alt={project.title} className="w-full h-full object-cover rounded-t-lg" width={1000} height={1000} />
             </div>
             <div className="p-8">
                 <h2 className="text-3xl font-bold text-slate-900">{project.title}</h2>
