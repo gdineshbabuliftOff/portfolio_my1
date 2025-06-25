@@ -3,6 +3,7 @@
 import { Github, Linkedin, Twitter, Code, ExternalLink, Briefcase, GraduationCap, Send, X, Award } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 // --- TYPE DEFINITIONS ---
 interface PortfolioImageProps {
@@ -39,15 +40,19 @@ const PortfolioImage: React.FC<PortfolioImageProps> = ({ src, alt }) => {
   const fallbackSrc = `https://placehold.co/400x400/e2e8f0/94a3b8?text=Image+Not+Found`;
 
   return (
-    <motion.img
-      src={imgSrc}
-      alt={alt}
-      className="w-full h-full object-cover"
-      onError={() => setImgSrc(fallbackSrc)}
+    <motion.div
+      className="w-full h-full"
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.5 }}
-    />
+    >
+        <Image
+          src={imgSrc}
+          alt={alt}
+          className="w-full h-full object-cover"
+          onError={() => setImgSrc(fallbackSrc)}
+        />
+    </motion.div>
   );
 };
 
@@ -309,7 +314,7 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void; }> = ({ pr
             <button onClick={onClose} className="absolute top-4 right-4 text-slate-500 hover:text-slate-800 z-10">
                 <X size={28} />
             </button>
-            <div className="h-72">
+            <div className="relative h-72">
                 <img src={project.image} alt={project.title} className="w-full h-full object-cover rounded-t-lg" />
             </div>
             <div className="p-8">
